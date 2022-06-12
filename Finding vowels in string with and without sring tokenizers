@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+#include <string.h>
+struct Vowels
+{
+    int vowels(char* A)
+    {
+        int i,k=0;
+        for(i=0;A[i]!='\0';i++)
+        {
+            if(A[i]=='a'||A[i]=='e'||A[i]=='i'||A[i]=='o'||A[i]=='u'||A[i]=='A'||A[i]=='E'||A[i]=='I'||A[i]=='O'||A[i]=='U')
+            k++;
+        }
+        return(k);
+    }
+    void withoutstringtokenizers(char *A, char B)
+    {
+        char C[100][100];
+        int i,k=0,k1=0,k2=0;
+        for(i=0;A[i]!='\0';i++)
+        {
+            if(A[i]==B)
+            {
+                //puts(C[k1]);
+                k1++;
+                k2=0;//k1++ and k2=0 is must 
+                continue;
+            }
+            C[k1][k2++]=A[i];
+        }
+        //cout<<k1;
+        for(i=0;i<k1;i++)
+        {
+            k=vowels(C[i]);
+            cout<<"No. of vowels in "<<C[i]<<" is "<<k<<"\n";
+        }
+    }
+    void withstringtokenizers(char* A,char* B)
+    {
+        char *p=strtok(A,B);
+        int k;
+        while(p!=NULL)
+        {
+            k=vowels(p);
+            cout<<"No. of vowels in "<<p<<" is "<<k<<"\n";
+            //withstringtokenizers(p," ");
+            p=strtok(NULL,B);
+        }
+    }
+};
+int main()
+{
+    Vowels V;
+    char A[100]={'\0'},B[100]={'\0'};
+    cout<<"Enter the paragraph";
+    fgets(A,sizeof(A),stdin);
+    int i,j,len=strlen(A);
+    strcpy(B,A);
+    cout<<"--------------------------Without String Tokenizers--------------------------\n";
+    cout<<"No.of vowels for each word\n";
+    V.withoutstringtokenizers(A,' ');
+    cout<<"No.of vowels for each sentence\n";
+    V.withoutstringtokenizers(A,'.');
+    cout<<"--------------------------With String Tokenizers--------------------------\n";
+    cout<<"No.of vowels for each sentence\n";
+    V.withstringtokenizers(A,".");
+    cout<<"No.of vowels for each word\n";
+    V.withstringtokenizers(B," ");
+    return 0;
+}
